@@ -1,14 +1,18 @@
+import { IoPersonCircle } from "react-icons/io5";
+import { GiNestedHearts } from "react-icons/gi";
+import { IoBagHandleSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header>
       <div class="logo_container">
-        <a href="#">
+        <Link to="/">
           <img
             class="myntra_home"
             src="images/myntra_logo.webp"
             alt="Myntra Home"
           />
-        </a>
+        </Link>
       </div>
       <nav class="nav_bar">
         <a href="#">Men</a>
@@ -29,17 +33,20 @@ const Header = () => {
       </div>
       <div class="action_bar">
         <div class="action_container">
+          <IoPersonCircle />
           <span class="action_name">Profile</span>
         </div>
 
         <div class="action_container">
+          <GiNestedHearts />
           <span class="action_name">Wishlist</span>
         </div>
 
-        <div class="action_container">
+        <Link to="/bag" class="action_container">
+          <IoBagHandleSharp />
           <span class="action_name">Bag</span>
           <span class="bag-item-count">0</span>
-        </div>
+        </Link>
       </div>
     </header>
   );
