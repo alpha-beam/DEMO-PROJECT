@@ -1,4 +1,11 @@
+import { useDispatch, useSelector } from "react-redux";
+import { BagActions } from "../store/BagSlice";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 const HomeItem = ({ item }) => {
+  const bag = useSelector((store) => store.bag);
+  const Dispatch = useDispatch();
+  const elefound = bag.indexOf(item.id) >= 0;
   return (
     <div className="item-container">
       <img className="item-image" src={item.image} alt="item image" />
@@ -12,12 +19,25 @@ const HomeItem = ({ item }) => {
         <span className="original-price">Rs {item.original_price}</span>
         <span className="discount">({item.discount_percentage}% OFF)</span>
       </div>
-      <button
-        className="btn-add-bag"
-        onClick={() => console.log("Item was clicked")}
-      >
-        Add to Bag
-      </button>
+      {!elefound ? (
+        <button
+          type="button"
+          class="btn btn-success btn-add-bag"
+          onClick={() => {
+            Dispatch(BagActions.addToBag(item.id));
+          }}
+        >
+          <IoIosAddCircleOutline /> Add To Bag
+        </button>
+      ) : (
+        <button
+          type="button"
+          class="btn btn-danger btn-add-bag"
+          onClick={() => Dispatch(BagActions.removeFromBag(item.id))}
+        >
+          <MdDelete /> Remove
+        </button>
+      )}
     </div>
   );
 };

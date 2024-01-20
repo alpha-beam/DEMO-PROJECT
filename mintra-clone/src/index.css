@@ -213,7 +213,7 @@ header {
   margin-top: 8px;
   font-size: 18px;
   width: 100%;
-  background-color: lightgreen;
+  /* background-color: lightgreen; */
   border: none;
   padding: 5px 15px;
   border-radius: 10px;
@@ -354,6 +354,9 @@ a.action_container:link {
 .return-period-days {
   font-weight: 700;
   margin-right: 4px;
+}
+.spinner {
+  margin: 100px 0px;
 }
 
 .delivery-details {

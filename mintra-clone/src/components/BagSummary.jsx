@@ -1,24 +1,40 @@
+import { useSelector } from "react-redux";
+
 const BagSummary = () => {
-  const bagsummary = {
-    totalItem: 3,
-    totalMRP: 2345,
-    totalDiscount: 999,
-    finalPayment: 1346,
+  const bag = useSelector((store) => store.bag);
+  let totalMRP = 0;
+  let totalDiscount = 0;
+  const items = useSelector((store) => store.items);
+  const newit = items.filter((it) => {
+    const ind = bag.indexOf(it.id);
+    return ind >= 0;
+  });
+  const giveme = (mrp, dis) => {
+    totalMRP += mrp;
+    totalDiscount += (dis * mrp) / 100;
   };
+  newit.map((it) => {
+    giveme(it.current_price, it.discount_percentage);
+  });
+  // bagItemObjects.forEach((bagItem) => {
+  //   totalMRP += bagItem.original_price;
+  //   totalDiscount += bagItem.original_price - bagItem.current_price;
+  // });
+
+  let finalPayment = totalMRP - totalDiscount + 99;
+
   return (
     <div class="bag-summary">
       <div className="bag-details-container">
-        <div className="price-header">
-          PRICE DETAILS ({bagsummary.totalItem} Items){" "}
-        </div>
+        <div className="price-header">PRICE DETAILS ({bag.length} Items) </div>
         <div className="price-item">
           <span className="price-item-tag">Total MRP</span>
-          <span className="price-item-value">₹{bagsummary.totalMRP}</span>
+          <span className="price-item-value">₹{totalMRP}</span>
         </div>
         <div className="price-item">
           <span className="price-item-tag">Discount on MRP</span>
           <span className="price-item-value priceDetail-base-discount">
-            -₹{bagsummary.totalDiscount}
+            -₹{totalDiscount}
           </span>
         </div>
         <div className="price-item">
@@ -28,7 +44,7 @@ const BagSummary = () => {
         <hr />
         <div className="price-footer">
           <span className="price-item-tag">Total Amount</span>
-          <span className="price-item-value">₹{bagsummary.finalPayment}</span>
+          <span className="price-item-value">₹{finalPayment}</span>
         </div>
       </div>
       <button className="btn-place-order">

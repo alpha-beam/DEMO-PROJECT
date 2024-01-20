@@ -1,4 +1,11 @@
+import { useDispatch } from "react-redux";
+import { BagActions } from "../store/BagSlice";
+import { MdOutlineDelete } from "react-icons/md";
 const BagItem = ({ item }) => {
+  const Dispatch = useDispatch();
+  const handleremove = () => {
+    Dispatch(BagActions.removeFromBag(item.id));
+  };
   return (
     <div className="bag-item-container">
       <div className="item-left-part">
@@ -11,7 +18,7 @@ const BagItem = ({ item }) => {
           <span className="current-price">Rs {item.current_price}</span>
           <span className="original-price">Rs {item.original_price}</span>
           <span className="discount-percentage">
-            (${item.discount_percentage}% OFF)
+            ({item.discount_percentage}% OFF)
           </span>
         </div>
         <div className="return-period">
@@ -24,11 +31,8 @@ const BagItem = ({ item }) => {
         </div>
       </div>
 
-      <div
-        className="remove-from-cart"
-        onClick={() => console.log("item removed.")}
-      >
-        X
+      <div className="remove-from-cart" onClick={handleremove}>
+        <MdOutlineDelete />
       </div>
     </div>
   );

@@ -2,7 +2,10 @@ import { IoPersonCircle } from "react-icons/io5";
 import { GiNestedHearts } from "react-icons/gi";
 import { IoBagHandleSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const bag = useSelector((store) => store.bag);
+
   return (
     <header>
       <div class="logo_container">
@@ -45,7 +48,7 @@ const Header = () => {
         <Link to="/bag" class="action_container">
           <IoBagHandleSharp />
           <span class="action_name">Bag</span>
-          <span class="bag-item-count">0</span>
+          <span class="bag-item-count">{bag.length}</span>
         </Link>
       </div>
     </header>
